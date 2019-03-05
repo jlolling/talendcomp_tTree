@@ -19,10 +19,15 @@ public class Record {
 	private Object struct = null;
 	
 	public Record(Object key) {
+		this(key, null);
+	}
+	
+	public Record(Object key, Object struct) {
 		if (key == null) {
 			throw new IllegalArgumentException("Key value cannot be null");
 		}
 		this.key = key;
+		this.struct = struct;
 	}
 	
 	/**
