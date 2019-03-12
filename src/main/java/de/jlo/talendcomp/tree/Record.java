@@ -29,7 +29,6 @@ public class Record {
 		this.key = key;
 		this.struct = struct;
 	}
-	
 	/**
 	 * add here the Talend transfer object (<rowname>Struct)
 	 * @param struct Talend structure object

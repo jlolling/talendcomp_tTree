@@ -1,0 +1,80 @@
+<%@ jet 
+	imports="
+
+			org.talend.core.model.process.INode 
+			org.talend.core.model.process.ElementParameterParser 
+			org.talend.core.model.metadata.IMetadataTable 
+			org.talend.core.model.metadata.IMetadataColumn 
+			org.talend.core.model.process.IConnection
+			org.talend.core.model.process.IConnectionCategory
+			org.talend.core.model.utils.NodeUtil
+			org.talend.designer.codegen.config.CodeGeneratorArgument
+
+			java.util.List
+			java.util.ArrayList
+		
+		org.talend.core.model.process.EConnectionType
+		org.talend.core.model.process.IDataConnection
+		//de.jlo.talendcomp.tree.Record
+		//de.jlo.talendcomp.tree.GenericTree
+
+	"
+%>
+
+<% 
+
+CodeGeneratorArgument codeGenArgument = (CodeGeneratorArgument) argument;
+INode node = (INode) codeGenArgument.getArgument();
+String cid = node.getUniqueName();
+IConnection conn = null;
+List<? extends IConnection> inConns = NodeUtil.getIncomingConnections(node, IConnectionCategory.DATA);
+if (inConns.size() > 0) {
+	conn = inConns.get(0);
+}
+List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>(); // dummy
+List<IMetadataTable> metadatas = node.getMetadataList();
+if (metadatas != null && metadatas.size() > 0) {
+	IMetadataTable metadata = metadatas.get(0);
+	if (metadata != null) {
+		listColumns = metadata.getListColumns();
+	}
+}
+String connectionName = conn.getName();
+String keyColumnName = ElementParameterParser.getValue(node, "__KEY__");
+String parentColumnName = ElementParameterParser.getValue(node, "__PARENT_KEY__");
+
+%>
+
+<%=connectionName%>Struct <%=cid%>_<%=connectionName%>_struct = new <%=connectionName%>Struct();
+<%
+	for (int columnIndex = 0; columnIndex < listColumns.size(); columnIndex++) {
+		IMetadataColumn column = listColumns.get(columnIndex);
+		String columnName = column.getLabel();
+		%>
+		<%=cid%>_<%=connectionName%>_struct.<%=columnName%> = <%=connectionName%>.<%=columnName%>;
+		<%
+	}
+%>
+
+
+//Object <%=cid%>_recordKey = <%=connectionName%>.<%=keyColumnName%>;
+//if (<%=cid%>_recordKey==null) { <%=cid%>_recordKey=<%=cid%>_pseudoRoot; }
+de.jlo.talendcomp.tree.Record rec = new de.jlo.talendcomp.tree.Record(<%=connectionName%>.<%=keyColumnName%>, <%=cid%>_<%=connectionName%>_struct);
+
+//rec.addStruct(<%=cid%>_<%=connectionName%>_struct);
+//rec.addStruct(<%=connectionName%>);
+recElements.add(rec);
+
+recMap.put(rec.getKey(), rec);
+
+if (<%=connectionName%>.<%=parentColumnName%> == null ) { 
+	parentChildKeys.put(<%=connectionName%>.<%=keyColumnName%> , <%=cid%>_pseudoRoot );
+	//<%=connectionName%>.<%=parentColumnName%> = <%=cid%>_pseudoRoot;
+} else {
+parentChildKeys.put(<%=connectionName%>.<%=keyColumnName%> , <%=connectionName%>.<%=parentColumnName%> );
+}
+globalMap.put("<%=cid%>_NB_LINE", ((Integer)globalMap.get("<%=cid%>_NB_LINE")) + 1);
+
+
+
+     

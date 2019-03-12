@@ -1,0 +1,28 @@
+<%@ jet 
+	imports="
+		org.talend.core.model.process.INode 
+		org.talend.core.model.process.IConnection
+        org.talend.designer.codegen.config.CodeGeneratorArgument
+		java.util.List
+		org.talend.core.model.metadata.IMetadataTable
+		org.talend.core.model.process.EConnectionType
+		org.talend.core.model.process.IDataConnection
+	"
+%>
+<%
+	CodeGeneratorArgument codeGenArgument = (CodeGeneratorArgument) argument;
+	INode node = (INode)codeGenArgument.getArgument();
+	String cid = node.getUniqueName();
+%>
+
+/*
+for ( java.util.Map.Entry<Object key, de.jlo.talendcomp.tree.Record> r : recMap.entrySet()) {
+	<%=cid%>_talendTree.add(r.getValue() , recMap.get(parentChild.getValue(r.getKey()) ) );
+	parent = 
+}
+*/
+
+
+globalMap.put("<%=cid%>_NB_LINE", ((Integer)globalMap.get("<%=cid%>_NB_LINE")) + 1);
+
+}

@@ -1,0 +1,105 @@
+<%@ jet 
+	imports="
+		org.talend.core.model.process.INode 
+		org.talend.core.model.process.IConnection
+		org.talend.core.model.process.IConnectionCategory
+        org.talend.designer.codegen.config.CodeGeneratorArgument
+		java.util.List
+		java.util.ArrayList
+		
+		org.talend.core.model.process.EConnectionType
+		org.talend.core.model.process.IDataConnection
+		org.talend.core.model.process.ElementParameterParser
+		org.talend.core.model.utils.NodeUtil
+		org.talend.core.model.metadata.IMetadataTable 
+		org.talend.core.model.metadata.IMetadataColumn 
+	"
+%>
+
+<%
+	CodeGeneratorArgument codeGenArgument = (CodeGeneratorArgument) argument;
+	INode node = (INode)codeGenArgument.getArgument();
+	String cid = node.getUniqueName();
+
+    //List<IConnection> connections = (List<IConnection>) node.getIncomingConnections();
+    
+    String treeSourceName = ElementParameterParser.getValue(node, "__TREE_SOURCE__");
+    
+    String ingoingConnName = null;
+    INode node_tree_output = NodeUtil.getNodeByUniqueName(node.getProcess(),  treeSourceName );
+    IConnection treeout_conn = null;
+    List<? extends IConnection> treeout_Conns = NodeUtil.getIncomingConnections(node_tree_output, IConnectionCategory.DATA);
+    if (treeout_Conns.size() > 0) {
+    	treeout_conn = treeout_Conns.get(0);
+    	ingoingConnName = treeout_conn.getName();
+    }
+    List<IMetadataColumn> list_tree_out_Columns = new ArrayList<IMetadataColumn>(); // dummy
+    List<IMetadataTable> tree_out_metadatas = node_tree_output.getMetadataList();
+    if (tree_out_metadatas != null && tree_out_metadatas.size() > 0) {
+    	IMetadataTable to_metadata = tree_out_metadatas.get(0);
+    	if (to_metadata != null) {
+    		list_tree_out_Columns = to_metadata.getListColumns();
+    	}
+    }
+    
+%>
+
+<%
+String outgoingConnName = null;
+List<? extends IConnection> outConns = NodeUtil.getOutgoingConnections(node, IConnectionCategory.DATA);
+if (outConns != null && outConns.isEmpty() == false) {
+    IConnection outConn = outConns.get(0);
+    outgoingConnName = outConn.getName();
+}
+
+List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>(); // dummy
+List<IMetadataTable> metadatas = node.getMetadataList();
+if (metadatas != null && metadatas.size() > 0) {
+	IMetadataTable metadata = metadatas.get(0);
+	if (metadata != null) {
+		listColumns = metadata.getListColumns();
+	}
+}
+%>
+
+@SuppressWarnings("unchecked")
+
+de.jlo.talendcomp.tree.TalendTree theTree =
+(de.jlo.talendcomp.tree.TalendTree)globalMap.get("<%=treeSourceName%>_talendTree");
+
+java.util.List<de.jlo.talendcomp.tree.Record> recElements = theTree.getTree(false);
+		//(java.util.ArrayList<de.jlo.talendcomp.tree.Record>)globalMap.get("<%=treeSourceName%>_DataList");
+
+System.out.println(recElements.size());
+globalMap.put("<%=cid%>_NB_LINE",0 );
+
+<%   if (outgoingConnName != null) { %>	
+
+//java.util.List<de.jlo.talendcomp.tree.Record> tr = theTree.getTree();
+
+//for (int a=0; a<recElements.size(); a++) {
+for ( de.jlo.talendcomp.tree.Record r : recElements) {
+	if (r == null) { continue; }
+<%
+for (int columnIndex = 0; columnIndex < listColumns.size(); columnIndex++) {
+	IMetadataColumn column = listColumns.get(columnIndex);
+	String columnName = column.getLabel();
+	 
+	for (int columnIndex2 = 0; columnIndex2 < list_tree_out_Columns.size(); columnIndex2++) {
+		IMetadataColumn column2 = list_tree_out_Columns.get(columnIndex2);
+		String columnName2 = column2.getLabel();
+
+		if (columnName.equals(columnName2)) {	
+		%>	
+	//<%=outgoingConnName%> = (<%=outgoingConnName%>Struct)recElements.get(a).getStruct();
+		<%=outgoingConnName%>.<%=columnName%> = ((<%=ingoingConnName%>Struct)r.getStruct()).<%=columnName%>;
+	
+<%
+		}
+	}
+} 
+%>
+
+
+
+<% } %>

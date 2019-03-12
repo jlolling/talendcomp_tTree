@@ -1,0 +1,95 @@
+<%@ jet 
+	imports="
+		org.talend.core.model.process.INode 
+		org.talend.core.model.process.IConnection
+        org.talend.designer.codegen.config.CodeGeneratorArgument
+		java.util.List
+		java.util.ArrayList		
+		org.talend.core.model.process.EConnectionType
+		org.talend.core.model.process.IDataConnection
+		org.talend.core.model.process.ElementParameterParser 
+		
+		org.talend.core.model.metadata.IMetadataTable
+		org.talend.core.model.metadata.IMetadataColumn
+
+		//de.jlo.talendcomp.tree.Record
+		//de.jlo.talendcomp.tree.GenericTree
+
+	"
+%>
+
+<%
+	CodeGeneratorArgument codeGenArgument = (CodeGeneratorArgument) argument;
+	INode node = (INode)codeGenArgument.getArgument();
+	String cid = node.getUniqueName();
+
+    List<IConnection> connections = (List<IConnection>) node.getIncomingConnections();
+       
+    String keyColumnName = ElementParameterParser.getValue(node, "__KEY__");
+    String parentColumnName = ElementParameterParser.getValue(node, "__PARENT_KEY__");
+	String parentColumnTalendType = null;
+
+    if (connections != null && connections.size() > 0) {
+        for (IConnection connection : connections) {
+        	String connectionName = connection.getName();
+        	
+        	List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>(); // dummy
+        	//IMetadataTable metadatas = node.getMetadataList();
+        	//if (metadatas != null && metadatas.size() > 0) {
+        		IMetadataTable metadata = connection.getMetadataTable(); // metadatas.get(0);
+        		if (metadata != null) {
+        			listColumns = metadata.getListColumns();
+        			for (IMetadataColumn col_meta : listColumns) {
+        				String columnLabel = col_meta.getLabel();
+        				String columnTalendType = col_meta.getTalendType();
+        				if (columnLabel.equals(parentColumnName)) { 
+        					parentColumnTalendType = columnTalendType;
+        				}			
+        			}
+        		}
+        	
+	}
+	}
+
+    if (parentColumnTalendType==null) {
+    	%>
+    	throw new Exception("Unsupported ColumnType for Keys!");
+    	<%
+    }
+    String parentColumnType = parentColumnTalendType.substring(3);
+    
+%>
+/*
+ * TODO: ParentID must be same datatype as ID
+ * TODO: Check additional the datatypes not just name between output and input component
+ * 
+ */
+java.util.ArrayList<de.jlo.talendcomp.tree.Record> recElements = new java.util.ArrayList<de.jlo.talendcomp.tree.Record>();
+
+java.util.Map<Object, de.jlo.talendcomp.tree.Record> recMap = new java.util.HashMap<Object, de.jlo.talendcomp.tree.Record>();
+java.util.Map<Object, Object> parentChildKeys = new java.util.HashMap<Object, Object>();
+
+de.jlo.talendcomp.tree.TalendTree <%=cid%>_talendTree = new de.jlo.talendcomp.tree.TalendTree();
+
+<%=parentColumnType%> <%=cid%>_pseudoRoot = null;
+<%
+if (parentColumnTalendType == "id_String") { 
+		%>
+		<%=cid%>_pseudoRoot = "nullRootPseudoValue_<%=cid%>";
+		<%
+} else {
+		%>
+		<%=cid%>_pseudoRoot = <%=parentColumnType%>.MIN_VALUE;
+		<%
+}
+%>
+//Object <%=cid%>_pseudoRoot = ;
+
+//key <%=keyColumnName%>
+//child <%=parentColumnName%>
+
+if ("<%=keyColumnName%>".equals( "<%=parentColumnName%>" )) {
+	throw new Exception("Parent and Child cannot be the same.");
+}
+//System.out.println(instanceof );     
+globalMap.put("<%=cid%>_NB_LINE",0 );

@@ -129,7 +129,7 @@ public abstract class GenericTree<T> {
 	public List<T> getChildren(T parent, boolean deep) {
 		List<T> children = new ArrayList<T>();
 		for ( Map.Entry<T, T> entry : this.childParentMap.entrySet() ) {
-			if (parent.equals(entry.getValue())) {
+			if (parent!=null && entry!=null && parent.equals(entry.getValue())) {
 				if (children.contains(entry.getKey()) == false) { 
 					children.add(entry.getKey());
 					if (deep==true && this.hasChildren(entry.getKey())) {
@@ -146,12 +146,14 @@ public abstract class GenericTree<T> {
 	 * @return list of children
 	 */
 	public List<T> getTree() {
+		return getTree(true);
+	}
+	public List<T> getTree(boolean returnRoot) {
 		List<T> children = new ArrayList<T>();
-		children.add(root);
+		if (returnRoot) { children.add(root); }
 		children.addAll(this.getChildren(root, true));
 		return children;
 	}
-	
 	/**
 	 * Returns boolean if parent has children
 	 * @param parent
