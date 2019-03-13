@@ -80,6 +80,10 @@ globalMap.put("<%=cid%>_NB_LINE",0 );
 //for (int a=0; a<recElements.size(); a++) {
 for ( de.jlo.talendcomp.tree.Record r : recElements) {
 	if (r == null) { continue; }
+	//theTree.collectParents();
+	//mt.collectParents(rec).size()
+	<%=outgoingConnName%>.TREE_LEVEL = theTree.collectParents(r).size() -1;
+	<%=outgoingConnName%>.TREE_PATH = theTree.getPath(r);
 <%
 for (int columnIndex = 0; columnIndex < listColumns.size(); columnIndex++) {
 	IMetadataColumn column = listColumns.get(columnIndex);
