@@ -1,4 +1,4 @@
-package de.jlo.talendcomp.tree;
+package de.ck4i.talendcomp.tree;
 
 import java.util.List;
 import java.util.ArrayList;

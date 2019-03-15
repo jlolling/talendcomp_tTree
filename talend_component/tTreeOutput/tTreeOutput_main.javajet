@@ -15,8 +15,8 @@
 		
 		org.talend.core.model.process.EConnectionType
 		org.talend.core.model.process.IDataConnection
-		//de.jlo.talendcomp.tree.Record
-		//de.jlo.talendcomp.tree.GenericTree
+		//de.ck4i.talendcomp.tree.Record
+		//de.ck4i.talendcomp.tree.GenericTree
 
 	"
 %>
@@ -59,7 +59,7 @@ String parentColumnName = ElementParameterParser.getValue(node, "__PARENT_KEY__"
 
 //Object <%=cid%>_recordKey = <%=connectionName%>.<%=keyColumnName%>;
 //if (<%=cid%>_recordKey==null) { <%=cid%>_recordKey=<%=cid%>_pseudoRoot; }
-de.jlo.talendcomp.tree.Record rec = new de.jlo.talendcomp.tree.Record(<%=connectionName%>.<%=keyColumnName%>, <%=cid%>_<%=connectionName%>_struct);
+de.ck4i.talendcomp.tree.Record rec = new de.ck4i.talendcomp.tree.Record(<%=connectionName%>.<%=keyColumnName%>, <%=cid%>_<%=connectionName%>_struct);
 
 //rec.addStruct(<%=cid%>_<%=connectionName%>_struct);
 //rec.addStruct(<%=connectionName%>);

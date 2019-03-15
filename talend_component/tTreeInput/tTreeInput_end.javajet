@@ -16,7 +16,7 @@
 %>
 
 /*
-for ( java.util.Map.Entry<Object key, de.jlo.talendcomp.tree.Record> r : recMap.entrySet()) {
+for ( java.util.Map.Entry<Object key, de.ck4i.talendcomp.tree.Record> r : recMap.entrySet()) {
 	<%=cid%>_talendTree.add(r.getValue() , recMap.get(parentChild.getValue(r.getKey()) ) );
 	parent = 
 }

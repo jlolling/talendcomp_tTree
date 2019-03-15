@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>de.jlo.talendcomp</groupId>
-  <artifactId>jlo-talendcomp-tree</artifactId>
+  <groupId>de.ck4i.talendcomp</groupId>
+  <artifactId>ck4i-talendcomp-tree</artifactId>
   <version>0.1</version>
-  <name>jlo-talendcomp-tree</name>
+  <name>ck4i-talendcomp-tree</name>
   <build>
     <plugins>
       <plugin>
