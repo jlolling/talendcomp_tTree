@@ -1,4 +1,4 @@
-package de.jlo.talendcomp.tree;
+package de.ck4i.talendcomp.tree;
 
 public class TalendTree extends GenericTree<Record> {
 	public TalendTree() {

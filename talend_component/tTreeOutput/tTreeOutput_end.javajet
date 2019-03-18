@@ -67,19 +67,19 @@
 <%=parentColumnType%> rootValue = <%=str_rootValue%>;
 if (rootValue==null) { rootValue=<%=cid%>_pseudoRoot; }
 /*
-de.jlo.talendcomp.tree.Record root_record = new de.jlo.talendcomp.tree.Record(rootValue, null);
-<%=cid%>_talendTree.add((de.jlo.talendcomp.tree.Record)null , root_record );
+de.ck4i.talendcomp.tree.Record root_record = new de.ck4i.talendcomp.tree.Record(rootValue, null);
+<%=cid%>_talendTree.add((de.ck4i.talendcomp.tree.Record)null , root_record );
 */
-de.jlo.talendcomp.tree.Record recRoot = new de.jlo.talendcomp.tree.Record(rootValue, null);
-<%=cid%>_talendTree.add( (de.jlo.talendcomp.tree.Record)null , recRoot );
+de.ck4i.talendcomp.tree.Record recRoot = new de.ck4i.talendcomp.tree.Record(rootValue, null);
+<%=cid%>_talendTree.add( (de.ck4i.talendcomp.tree.Record)null , recRoot );
 
 for ( java.util.Map.Entry<Object, Object> o : parentChildKeys.entrySet() ) {
 	/*
 	if (rootValue == null && o.getValue()==null) {
-		<%=cid%>_talendTree.add( (de.jlo.talendcomp.tree.Record)null , recMap.get(o.getKey()) );		
+		<%=cid%>_talendTree.add( (de.ck4i.talendcomp.tree.Record)null , recMap.get(o.getKey()) );		
 	}
 	else if (rootValue != null && rootValue.equals(o.getValue()) ) {
-		<%=cid%>_talendTree.add( (de.jlo.talendcomp.tree.Record)null , recMap.get(o.getKey()) );
+		<%=cid%>_talendTree.add( (de.ck4i.talendcomp.tree.Record)null , recMap.get(o.getKey()) );
 		//System.out.println("nullroot added");
 		//System.out.println(recMap.get(o.getValue()) );
 	}
