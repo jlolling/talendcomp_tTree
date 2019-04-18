@@ -15,8 +15,6 @@
 		
 		org.talend.core.model.process.EConnectionType
 		org.talend.core.model.process.IDataConnection
-		//de.ck4i.talendcomp.tree.Record
-		//de.ck4i.talendcomp.tree.GenericTree
 
 	"
 %>

@@ -86,14 +86,13 @@ for ( java.util.Map.Entry<Object, Object> o : <%=cid%>_parentChildKeys.entrySet(
 	*/
 	//Object recordKey = o.getKey();
 	//if () {pseudoRoot; }
-	System.out.println(o.getKey() + " :: " + o.getValue());
+	//System.out.println(o.getKey() + " :: " + o.getValue());
 	if (o.getValue() == <%=cid%>_rootValue) {
 		<%=cid%>_talendTree.add(<%=cid%>_recMap.get(o.getKey()), <%=cid%>_recRoot );
 	} else {
 		<%=cid%>_talendTree.add(<%=cid%>_recMap.get(o.getKey()), <%=cid%>_recMap.get(o.getValue()) );
 	}
 }
-
 
 globalMap.put("<%=cid%>_DataList", <%=cid%>_recElements);
 globalMap.put("<%=cid%>_talendTree", <%=cid%>_talendTree);

@@ -12,9 +12,6 @@
 		org.talend.core.model.metadata.IMetadataTable
 		org.talend.core.model.metadata.IMetadataColumn
 
-		//de.ck4i.talendcomp.tree.Record
-		//de.ck4i.talendcomp.tree.GenericTree
-
 	"
 %>
 

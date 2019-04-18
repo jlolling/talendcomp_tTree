@@ -64,13 +64,13 @@ if (metadatas != null && metadatas.size() > 0) {
 
 @SuppressWarnings("unchecked")
 
-de.ck4i.talendcomp.tree.TalendTree theTree =
+de.ck4i.talendcomp.tree.TalendTree <%=cid%>_theTree =
 (de.ck4i.talendcomp.tree.TalendTree)globalMap.get("<%=treeSourceName%>_talendTree");
 
-java.util.List<de.ck4i.talendcomp.tree.Record> recElements = theTree.getTree(false);
+java.util.List<de.ck4i.talendcomp.tree.Record> <%=cid%>_recElements = <%=cid%>_theTree.getTree(false);
 		//(java.util.ArrayList<de.ck4i.talendcomp.tree.Record>)globalMap.get("<%=treeSourceName%>_DataList");
 
-System.out.println(recElements.size());
+System.out.println(<%=cid%>_recElements.size());
 globalMap.put("<%=cid%>_NB_LINE",0 );
 
 <%   if (outgoingConnName != null) { %>	
@@ -78,12 +78,12 @@ globalMap.put("<%=cid%>_NB_LINE",0 );
 //java.util.List<de.ck4i.talendcomp.tree.Record> tr = theTree.getTree();
 
 //for (int a=0; a<recElements.size(); a++) {
-for ( de.ck4i.talendcomp.tree.Record r : recElements) {
+for ( de.ck4i.talendcomp.tree.Record r : <%=cid%>_recElements) {
 	if (r == null) { continue; }
 	//theTree.collectParents();
 	//mt.collectParents(rec).size()
-	<%=outgoingConnName%>.TREE_LEVEL = theTree.collectParents(r).size() -1;
-	<%=outgoingConnName%>.TREE_PATH = theTree.getPath(r);
+	<%=outgoingConnName%>.TREE_LEVEL = <%=cid%>_theTree.collectParents(r).size() -1;
+	<%=outgoingConnName%>.TREE_PATH = <%=cid%>_theTree.getPath(r);
 <%
 for (int columnIndex = 0; columnIndex < listColumns.size(); columnIndex++) {
 	IMetadataColumn column = listColumns.get(columnIndex);
