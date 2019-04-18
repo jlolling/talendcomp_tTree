@@ -70,7 +70,7 @@ de.ck4i.talendcomp.tree.TalendTree <%=cid%>_theTree =
 java.util.List<de.ck4i.talendcomp.tree.Record> <%=cid%>_recElements = <%=cid%>_theTree.getTree(false);
 		//(java.util.ArrayList<de.ck4i.talendcomp.tree.Record>)globalMap.get("<%=treeSourceName%>_DataList");
 
-System.out.println(<%=cid%>_recElements.size());
+//System.out.println(<%=cid%>_recElements.size());
 globalMap.put("<%=cid%>_NB_LINE",0 );
 
 <%   if (outgoingConnName != null) { %>	
