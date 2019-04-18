@@ -64,10 +64,10 @@
  * TODO: Check additional the datatypes not just name between output and input component
  * 
  */
-java.util.ArrayList<de.ck4i.talendcomp.tree.Record> recElements = new java.util.ArrayList<de.ck4i.talendcomp.tree.Record>();
+java.util.ArrayList<de.ck4i.talendcomp.tree.Record> <%=cid%>_recElements = new java.util.ArrayList<de.ck4i.talendcomp.tree.Record>();
 
-java.util.Map<Object, de.ck4i.talendcomp.tree.Record> recMap = new java.util.HashMap<Object, de.ck4i.talendcomp.tree.Record>();
-java.util.Map<Object, Object> parentChildKeys = new java.util.HashMap<Object, Object>();
+java.util.Map<Object, de.ck4i.talendcomp.tree.Record> <%=cid%>_recMap = new java.util.HashMap<Object, de.ck4i.talendcomp.tree.Record>();
+java.util.Map<Object, Object> <%=cid%>_parentChildKeys = new java.util.HashMap<Object, Object>();
 
 de.ck4i.talendcomp.tree.TalendTree <%=cid%>_talendTree = new de.ck4i.talendcomp.tree.TalendTree();
 

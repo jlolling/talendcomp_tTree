@@ -59,19 +59,19 @@ String parentColumnName = ElementParameterParser.getValue(node, "__PARENT_KEY__"
 
 //Object <%=cid%>_recordKey = <%=connectionName%>.<%=keyColumnName%>;
 //if (<%=cid%>_recordKey==null) { <%=cid%>_recordKey=<%=cid%>_pseudoRoot; }
-de.ck4i.talendcomp.tree.Record rec = new de.ck4i.talendcomp.tree.Record(<%=connectionName%>.<%=keyColumnName%>, <%=cid%>_<%=connectionName%>_struct);
+de.ck4i.talendcomp.tree.Record <%=cid%>_rec = new de.ck4i.talendcomp.tree.Record(<%=connectionName%>.<%=keyColumnName%>, <%=cid%>_<%=connectionName%>_struct);
 
 //rec.addStruct(<%=cid%>_<%=connectionName%>_struct);
 //rec.addStruct(<%=connectionName%>);
-recElements.add(rec);
+<%=cid%>_recElements.add(<%=cid%>_rec);
 
-recMap.put(rec.getKey(), rec);
+<%=cid%>_recMap.put(<%=cid%>_rec.getKey(), <%=cid%>_rec);
 
 if (<%=connectionName%>.<%=parentColumnName%> == null ) { 
-	parentChildKeys.put(<%=connectionName%>.<%=keyColumnName%> , <%=cid%>_pseudoRoot );
+	<%=cid%>_parentChildKeys.put(<%=connectionName%>.<%=keyColumnName%> , <%=cid%>_pseudoRoot );
 	//<%=connectionName%>.<%=parentColumnName%> = <%=cid%>_pseudoRoot;
 } else {
-parentChildKeys.put(<%=connectionName%>.<%=keyColumnName%> , <%=connectionName%>.<%=parentColumnName%> );
+	<%=cid%>_parentChildKeys.put(<%=connectionName%>.<%=keyColumnName%> , <%=connectionName%>.<%=parentColumnName%> );
 }
 globalMap.put("<%=cid%>_NB_LINE", ((Integer)globalMap.get("<%=cid%>_NB_LINE")) + 1);
 

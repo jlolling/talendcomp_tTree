@@ -64,16 +64,16 @@
 //<%=parentColumnTalendType%>	
 //globalMap.put("<%=cid%>_NB_LINE", ((Integer)globalMap.get("<%=cid%>_NB_LINE")) + 1);
 
-<%=parentColumnType%> rootValue = <%=str_rootValue%>;
-if (rootValue==null) { rootValue=<%=cid%>_pseudoRoot; }
+<%=parentColumnType%> <%=cid%>_rootValue = <%=str_rootValue%>;
+if (<%=cid%>_rootValue==null) { <%=cid%>_rootValue=<%=cid%>_pseudoRoot; }
 /*
 de.ck4i.talendcomp.tree.Record root_record = new de.ck4i.talendcomp.tree.Record(rootValue, null);
 <%=cid%>_talendTree.add((de.ck4i.talendcomp.tree.Record)null , root_record );
 */
-de.ck4i.talendcomp.tree.Record recRoot = new de.ck4i.talendcomp.tree.Record(rootValue, null);
-<%=cid%>_talendTree.add( (de.ck4i.talendcomp.tree.Record)null , recRoot );
+de.ck4i.talendcomp.tree.Record <%=cid%>_recRoot = new de.ck4i.talendcomp.tree.Record(<%=cid%>_rootValue, null);
+<%=cid%>_talendTree.add( (de.ck4i.talendcomp.tree.Record)null , <%=cid%>_recRoot );
 
-for ( java.util.Map.Entry<Object, Object> o : parentChildKeys.entrySet() ) {
+for ( java.util.Map.Entry<Object, Object> o : <%=cid%>_parentChildKeys.entrySet() ) {
 	/*
 	if (rootValue == null && o.getValue()==null) {
 		<%=cid%>_talendTree.add( (de.ck4i.talendcomp.tree.Record)null , recMap.get(o.getKey()) );		
@@ -87,15 +87,15 @@ for ( java.util.Map.Entry<Object, Object> o : parentChildKeys.entrySet() ) {
 	//Object recordKey = o.getKey();
 	//if () {pseudoRoot; }
 	System.out.println(o.getKey() + " :: " + o.getValue());
-	if (o.getValue() == rootValue) {
-		<%=cid%>_talendTree.add(recMap.get(o.getKey()), recRoot );
+	if (o.getValue() == <%=cid%>_rootValue) {
+		<%=cid%>_talendTree.add(<%=cid%>_recMap.get(o.getKey()), <%=cid%>_recRoot );
 	} else {
-		<%=cid%>_talendTree.add(recMap.get(o.getKey()), recMap.get(o.getValue()) );
+		<%=cid%>_talendTree.add(<%=cid%>_recMap.get(o.getKey()), <%=cid%>_recMap.get(o.getValue()) );
 	}
 }
 
 
-globalMap.put("<%=cid%>_DataList", recElements);
+globalMap.put("<%=cid%>_DataList", <%=cid%>_recElements);
 globalMap.put("<%=cid%>_talendTree", <%=cid%>_talendTree);
 
 
