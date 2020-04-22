@@ -1,9 +1,6 @@
 package de.ck4i.talendcomp.tree;
 
 public class TalendTree extends GenericTree<Record> {
-	public TalendTree() {
-		
-	}
 	
 	public String getPath(Record record) {
 		String ret = "";
@@ -11,7 +8,7 @@ public class TalendTree extends GenericTree<Record> {
 		for (Record parent : parents) {
 			ret = "/" + parent.getKey().toString() + ret;
 		}
-		
 		return ret;
 	}
+	
 }
